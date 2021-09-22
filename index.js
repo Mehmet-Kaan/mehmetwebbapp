@@ -87,7 +87,6 @@ getUsers()
     }
     
 })
-.catch(error => console.log(error));
 
 function createUsersField (arrayOfUsers){
 
