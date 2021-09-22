@@ -4,7 +4,6 @@ let allUsers = [];
 const mainUserID = 19;
 const paintings = [];
 const mainUserFavorite = [];
-const storagedPics = JSON.parse(localStorage.getItem("paintings"));
 
 async function getPicsIDs (){
     const rqst = new Request ("https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=11&q=snow");
@@ -30,6 +29,8 @@ getPicsIDs()
     })
 })
 .catch(error => console.log(error));
+
+const storagedPics = JSON.parse(localStorage.getItem("paintings"));
 
 async function getPictureFromId(picId){
     const rqst = new Request (`https://collectionapi.metmuseum.org/public/collection/v1/objects/${picId}`)
