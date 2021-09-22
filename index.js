@@ -4,6 +4,7 @@ let allUsers = [];
 const mainUserID = 19;
 const paintings = [];
 const mainUserFavorite = [];
+let storagedPics;
 
 async function getPicsIDs (){
     const rqst = new Request ("https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=11&q=snow");
@@ -27,10 +28,9 @@ getPicsIDs()
             localStorage.setItem("paintings", JSON.stringify(paintings));
         });
     })
+    storagedPics = JSON.parse(localStorage.getItem("paintings"));
 })
 .catch(error => console.log(error));
-
-const storagedPics = JSON.parse(localStorage.getItem("paintings"));
 
 async function getPictureFromId(picId){
     const rqst = new Request (`https://collectionapi.metmuseum.org/public/collection/v1/objects/${picId}`)
@@ -40,7 +40,7 @@ async function getPictureFromId(picId){
 }
 
 async function getUsers(){
-    const response = await fetch("mpp.erikpineiro.se/dbp/sameTaste/users.php");
+    const response = await fetch("http://mpp.erikpineiro.se/dbp/sameTaste/users.php");
     const users = await response.json();
     return users;
 }
@@ -87,6 +87,7 @@ getUsers()
     }
     
 })
+
 
 function createUsersField (arrayOfUsers){
 
@@ -236,7 +237,6 @@ function createBoxesAndPushPics (arrayOfPics, userId, mainUserFavorite){
 
                 getuppdatedUsers();
             })
-            .catch(error => console.log(error));
         });
         
         removeButton.addEventListener("click", ()=>{
@@ -263,7 +263,6 @@ function createBoxesAndPushPics (arrayOfPics, userId, mainUserFavorite){
 
                 getuppdatedUsers();
             })
-            .catch(error => console.log(error));
 
         });
 
@@ -312,7 +311,6 @@ function getuppdatedUsers(){
 
         createUsersField(data.message);
     })
-    .catch(error => console.log(error));
 }
 
 function sendPictureFromID(id){
@@ -413,7 +411,6 @@ function updateUsersPer30sn(selectedsID){
         createUsersField(data.message);
         document.getElementById(selectedsID).click();
     })
-    .catch(error => console.log(error));
 }
 
 setInterval(() => {
